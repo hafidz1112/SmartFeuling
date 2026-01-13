@@ -17,7 +17,7 @@ export function MenuDropdown() {
           className="flex justify-between bg-blue-600 hover:bg-blue-700 w-full text-white border-none"
         >
             <div className="flex">
-                <h1>=</h1>
+                <h1 className="px-2">=</h1>
                 <h2>Menu</h2>
             </div>
             <div>▼</div>

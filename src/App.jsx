@@ -128,33 +128,6 @@ export const App = () => {
           <Content darkMode={darkMode}/>
       </main>
       {/* ringht konten */}
-      {/* <div className='space-y-2 bg-white w-full lg:w-62 h-screen shadow-md p-2'>
-        <h1>Live CCTV</h1>
-        <div className='grid justify-center bg-gray-100 p-2 grid-cols-2 w-full gap-2'>
-          <div className='bg-white p-4'>
-            <h1>cctv 1</h1>
-            <img src="" alt="" />
-          </div>
-          <div className='bg-white p-4'>
-            <h1>cctv 1</h1>
-            <img src="" alt="" />
-          </div>
-          <div className='bg-white p-4'>
-            <h1>cctv 1</h1>
-            <img src="" alt="" />
-          </div>
-          <div className='bg-white p-4'>
-            <h1>cctv 1</h1>
-            <img src="" alt="" />
-          </div>
-          
-        </div>
-        
-        <div className='bg-green-100 border border-green-300 p-2 rounded-sm'>
-          <h2 className='text-md text-green-600'>valid transaction</h2>
-          <p className='text-xl text-green-600'>1,204</p>
-        </div>
-      </div> */}
       <aside className={`w-full lg:w-80 h-full ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg p-4`}>
           <h2 className="text-sm font-bold mb-4">LIVE CCTV FEED</h2>
 
