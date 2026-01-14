@@ -29,7 +29,6 @@ export const App = () => {
         <Menu/>
         <div className=' flex justify-between border-b'>
           <div className='text-xl font-bold dark:text-gray-100'></div>
-          <div onClick={() => setSidebarOpen(false)} className='lg:hidden dark:text-gray-100 px-1'>X</div>
         </div>
         {/* navigation bar */}
 
@@ -91,7 +90,7 @@ export const App = () => {
           <Content darkMode={darkMode}/>
       </main>
       {/* ringht konten */}
-      <aside className={`w-full lg:w-80 h-full ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg p-4`}>
+      <aside className={`w-full lg:w-80 h-full ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg p-4 lg:pr-6`}>
           <h2 className="text-sm font-bold mb-4">LIVE CCTV FEED</h2>
 
           <div className="grid grid-cols-2 gap-2 mb-4">

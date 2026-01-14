@@ -1,5 +1,8 @@
 // src/component/Navbar.jsx
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 
 const Navbar = ({ darkMode, sidebarOpen, setSidebarOpen }) => {
   return (
@@ -7,10 +10,10 @@ const Navbar = ({ darkMode, sidebarOpen, setSidebarOpen }) => {
       <div className="flex items-center">
         <img src="/images/logo.png" alt="logo" className='w-[80px]'/>
         <button
-          className='p-2 text-xl font-bold lg:hidden dark:text-gray-100'
-          onClick={() => setSidebarOpen(true)}
+        className='p-2 text-xl font-bold lg:hidden dark:text-gray-100'
+        onClick={() => setSidebarOpen(!sidebarOpen)} // ✅ toggle buka/tutup
         >
-          ≡
+        <FontAwesomeIcon icon={faBars} />
         </button>
       </div>
 
