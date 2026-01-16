@@ -33,7 +33,7 @@ export function LoginPage({ className, ...props }) {
       return;
     }
 
-    if (email === "admin@gmail.com" && password === "admin") {
+    if (email === "admin@gmail.com" && password === "123") {
       showToast(
         "Login successful! Redirecting to dashboard...",
         "success",

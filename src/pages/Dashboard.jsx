@@ -486,19 +486,26 @@ export const Dashboard = () => {
           <div className="p-4 border-t flex justify-end gap-3 bg-white rounded-b-lg">
             <Button
               onClick={() => {
+                // setIsOpen(() => {
+                //   showToast(
+                //     "Alert settings saved successfully!",
+                //     "sucess",
+                //     2000
+                //   );
+                // }, 500);
+                setTimeout(false);
+                showToast(
+                  "Saving WhatsApp Alert Configuration.",
+                  "info",
+                  2000
+                );
                 setIsOpen(false);
                 showToast(
                   "Alert settings saved successfully!",
-                  "success",
+                  "sucess",
                   3000
                 );
-                setTimeout(() => {
-                  showToast(
-                    "WhatsApp alerts will be sent to 3 officers.",
-                    "info",
-                    2000
-                  );
-                }, 500);
+                
               }}
               className="bg-[#10a37f] hover:bg-green-700 text-white px-8 py-2 w-full sm:w-auto"
             >
