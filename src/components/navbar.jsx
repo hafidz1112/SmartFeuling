@@ -44,6 +44,7 @@ const Navbar = ({ darkMode, setDarkMode, sidebarOpen, setSidebarOpen }) => {
     >
       <div className="flex items-center">
         <img src="/images/logo.png" alt="logo" className="w-[80px]" />
+        <h1 className="text-xl font-bold hidden lg:block">Smart Fueling Verification System</h1>
         <button
           className="p-2 text-xl font-bold lg:hidden dark:text-slate-100"
           onClick={() => setSidebarOpen(!sidebarOpen)} // ✅ toggle buka/tutup

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import LogoPertamina from "/public/Pertamina_Logo.svg";
+import LogoPertamina from "/public/images/logo2.png";
 import {
   Card,
   CardContent,
@@ -54,9 +54,9 @@ export function LoginPage({ className, ...props }) {
         <Card>
           <CardHeader className="text-center">
             <div className="flex items-center w-full justify-center">
-              <img src={LogoPertamina} alt="" />
+              <img src={LogoPertamina} alt="" className="w-[200px]"/>
             </div>
-            <CardTitle className="text-xl">Welcome back</CardTitle>
+            <CardTitle className="text-md">Integrated, Transparent, Accountable</CardTitle>
             <CardDescription>Login with your Account</CardDescription>
           </CardHeader>
           <CardContent>
