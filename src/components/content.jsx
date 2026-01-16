@@ -6,18 +6,25 @@ import {
   CheckCircle,
   Smartphone,
   Mail,
-  X,
 } from "lucide-react";
 import Modal from "@/components/ui/modal";
-import { color } from "framer-motion";
+
+import { mockTransactions } from "@/lib/data";
+import {
+  getFraudDetection,
+  STATUS_BADGE_COLORS,
+  FRAUD_BADGE_COLORS,
+  getUniqueValues,
+  filterTransactions,
+} from "@/lib/transaction-utils";
+import { TABLE_HEADERS, UI_STRINGS, FRAUD_TYPE } from "@/lib/types";
 
 const Content = ({ darkMode }) => {
   const [selectedTx, setSelectedTx] = useState(null);
-  // ✅ Tambahkan state filter
   const [filters, setFilters] = useState({
     subsidy: "",
     rfid: "",
-    fraud: ""
+    fraud: "",
   });
 
   const openModal = (tx) => {
@@ -28,311 +35,37 @@ const Content = ({ darkMode }) => {
     setSelectedTx(null);
   };
 
-  const getFraudDetection = (subsidy, rfid) => {
-    if (subsidy === "Valid" && rfid === "Valid") {
-      return "No Fraud";
-    }
-    if (subsidy === "N/A" && rfid === "Valid") {
-      return "No Fraud";
-    }
-    if (subsidy === "Valid" && rfid === "Not Valid") {
-      return "Fraud RFID";
-    }
-    if (subsidy === "N/A" && rfid === "Not Valid") {
-      return "Fraud RFID";
-    }
-    if (subsidy === "Not Valid" && rfid === "Valid") {
-      return "Mismatch Subsidi";
-    }
-    if (subsidy === "Not Valid" && rfid === "N/A") {
-      return "Mismatch Subsidi";
-    }
-    if (subsidy === "Not Valid" && rfid === "Not Valid") {
-      return "Fraud RFID"; // asumsi
-    }
-    return "Unknown";
-  };
-
-  const transactions = [
-  {
-    time: "14:23:45",
-    spbu: "SPBU Pasteur",
-    dispenser: "A1",
-    vehicle: "Motorcycle",
-    brand: "Honda",
-    color: "Red",
-    plate: "D 1234 ABC",
-    fuel: "Pertalite",
-    volume: "5.2",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "14:22:31",
-    spbu: "SPBU Dago",
-    dispenser: "A2",
-    vehicle: "Car",
-    brand: "Toyota",
-    color: "White",
-    plate: "D 5678 XYZ",
-    fuel: "Pertamax",
-    volume: "20.5",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "14:21:18",
-    spbu: "SPBU Gatot Subroto",
-    dispenser: "B1",
-    vehicle: "Motorcycle",
-    brand: "Yamaha",
-    color: "Blue",
-    plate: "B 9876 DEF",
-    fuel: "Pertalite",
-    volume: "4.8",
-    subsidy: "Not Valid",
-    rfid: "Not Valid",
-    fraud: null,
-  },
-  {
-    time: "14:20:02",
-    spbu: "SPBU Pasteur",
-    dispenser: "B2",
-    vehicle: "Car",
-    brand: "Mitsubishi",
-    color: "Black",
-    plate: "D 2468 GHI",
-    fuel: "Solar",
-    volume: "35",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "14:18:47",
-    spbu: "SPBU Pajajaran",
-    dispenser: "A1",
-    vehicle: "Truck",
-    brand: "Hino",
-    color: "White",
-    plate: "F 1357 JKL",
-    fuel: "Solar",
-    volume: "80",
-    subsidy: "Not Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "14:17:33",
-    spbu: "SPBU Dago",
-    dispenser: "A1",
-    vehicle: "Motorcycle",
-    brand: "Suzuki",
-    color: "Green",
-    plate: "D 8642 MNO",
-    fuel: "Pertalite",
-    volume: "6",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "14:15:20",
-    spbu: "SPBU Ahmad Yani Surabaya",
-    dispenser: "A1",
-    vehicle: "Car",
-    brand: "Honda",
-    color: "Silver",
-    plate: "L 1122 PQR",
-    fuel: "Pertamax",
-    volume: "22",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "14:10:05",
-    spbu: "SPBU Gatot Subroto Medan",
-    dispenser: "A2",
-    vehicle: "Motorcycle",
-    brand: "Kawasaki",
-    color: "Black",
-    plate: "BK 3344 STU",
-    fuel: "Pertalite",
-    volume: "5.5",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "14:08:42",
-    spbu: "SPBU Thamrin",
-    dispenser: "B1",
-    vehicle: "Car",
-    brand: "BMW",
-    color: "Black",
-    plate: "B 5566 VWX",
-    fuel: "Pertamax Turbo",
-    volume: "28",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "14:05:18",
-    spbu: "SPBU Gejayan",
-    dispenser: "A1",
-    vehicle: "Motorcycle",
-    brand: "Honda",
-    color: "Red",
-    plate: "AB 7788 YZA",
-    fuel: "Pertalite",
-    volume: "4.9",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "13:58:30",
-    spbu: "SPBU BSD Tangerang",
-    dispenser: "B2",
-    vehicle: "Car",
-    brand: "Toyota",
-    color: "White",
-    plate: "B 9900 BCD",
-    fuel: "Solar",
-    volume: "40",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "13:45:12",
-    spbu: "SPBU Pasteur",
-    dispenser: "A1",
-    vehicle: "Car",
-    brand: "Mazda",
-    color: "Blue",
-    plate: "D 7890 EFG",
-    fuel: "Pertamax",
-    volume: "25",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "13:30:55",
-    spbu: "SPBU Slamet Riyadi",
-    dispenser: "B1",
-    vehicle: "Truck",
-    brand: "Isuzu",
-    color: "Yellow",
-    plate: "AD 1234 HIJ",
-    fuel: "Solar",
-    volume: "95",
-    subsidy: "Not Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "13:22:40",
-    spbu: "SPBU Demang Palembang",
-    dispenser: "A2",
-    vehicle: "Car",
-    brand: "Toyota",
-    color: "Silver",
-    plate: "BG 5678 KLM",
-    fuel: "Pertamax",
-    volume: "30",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "12:58:23",
-    spbu: "SPBU Banda Aceh",
-    dispenser: "B1",
-    vehicle: "Motorcycle",
-    brand: "Honda",
-    color: "Red",
-    plate: "BL 9012 NOP",
-    fuel: "Pertalite",
-    volume: "5.8",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "12:45:10",
-    spbu: "SPBU Sunset Road Bali",
-    dispenser: "A1",
-    vehicle: "Car",
-    brand: "Mercedes-Benz",
-    color: "Black",
-    plate: "DK 3456 QRS",
-    fuel: "Pertamax Turbo",
-    volume: "32",
-    subsidy: "N/A",
-    rfid: "N/A",
-    fraud: null,
-  },
-  {
-    time: "11:22:40",
-    spbu: "SPBU Gatot Subroto",
-    dispenser: "A1",
-    vehicle: "Motorcycle",
-    brand: "Yamaha",
-    color: "Blue",
-    plate: "B 1122 TUV",
-    fuel: "Pertalite",
-    volume: "5.5",
-    subsidy: "Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-  {
-    time: "10:15:30",
-    spbu: "SPBU Ahmad Yani Banjarmasin",
-    dispenser: "B1",
-    vehicle: "Truck",
-    brand: "Mitsubishi Fuso",
-    color: "White",
-    plate: "DA 7890 WXY",
-    fuel: "Solar",
-    volume: "120",
-    subsidy: "Not Valid",
-    rfid: "Valid",
-    fraud: null,
-  },
-];
-// ✅ Hitung fraud detection sekali
   const transactionsWithFraud = useMemo(() => {
-    return transactions.map(t => ({
+    return mockTransactions.map((t) => ({
       ...t,
-      fraudDetection: getFraudDetection(t.subsidy, t.rfid)
+      fraudDetection: getFraudDetection(t.subsidy, t.rfid),
     }));
-  }, [transactions]);
+  }, []);
 
-  // ✅ Filter data berdasarkan state
+  // Filter transaksi
   const filteredTransactions = useMemo(() => {
-    return transactionsWithFraud.filter(t => {
-      const matchSubsidy = filters.subsidy ? t.subsidy === filters.subsidy : true;
-      const matchRfid = filters.rfid ? t.rfid === filters.rfid : true;
-      const matchFraud = filters.fraud ? t.fraudDetection === filters.fraud : true;
-      return matchSubsidy && matchRfid && matchFraud;
-    });
+    return filterTransactions(transactionsWithFraud, filters);
   }, [filters, transactionsWithFraud]);
 
-  // ✅ Ambil nilai unik untuk opsi dropdown
-  const uniqueSubsidy = [...new Set(transactions.map(t => t.subsidy))];
-  const uniqueRfid = [...new Set(transactions.map(t => t.rfid))];
-  const uniqueFraud = [...new Set(transactionsWithFraud.map(t => t.fraudDetection))];
+  // Get unique fraud values for dropdown
+  const uniqueFraud = useMemo(
+    () => getUniqueValues(transactionsWithFraud, "fraudDetection"),
+    [transactionsWithFraud]
+  );
 
-  // ✅ Fungsi reset filter
+  // Reset filter function
   const resetFilters = () => {
     setFilters({ subsidy: "", rfid: "", fraud: "" });
+  };
+
+  // Helper function to get badge color for status
+  const getStatusBadgeColor = (status) => {
+    return STATUS_BADGE_COLORS[status] || "bg-gray-100 text-gray-800";
+  };
+
+  // Helper function to get badge color for fraud type
+  const getFraudBadgeColor = (fraudType) => {
+    return FRAUD_BADGE_COLORS[fraudType] || "bg-gray-100 text-gray-800";
   };
 
   return (
@@ -349,7 +82,7 @@ const Content = ({ darkMode }) => {
             darkMode ? "text-slate-100" : "text-gray-900"
           }`}
         >
-          Real-Time Transaction Log
+          {UI_STRINGS.TITLE}
         </h2>
         {/* ✅ UI Filter Bar */}
         <div className="block flex-wrap space-y-1 mb-3">
@@ -378,34 +111,49 @@ const Content = ({ darkMode }) => {
           </select> */}
 
           <div className="space-x-2">
-          {/* Fraud Detection Filter */}
-          <select
-            value={filters.fraud}
-            onChange={(e) => setFilters(prev => ({ ...prev, fraud: e.target.value }))}
-            className={`px-2 py-1 text-xs rounded border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300'}`}
-          >
-            <option value="">All Fraud</option>
-            {uniqueFraud.map((val, i) => (
-              <option key={i} value={val}>{val}</option>
-            ))}
-          </select>
+            {/* Fraud Detection Filter */}
+            <select
+              value={filters.fraud}
+              onChange={(e) =>
+                setFilters((prev) => ({ ...prev, fraud: e.target.value }))
+              }
+              className={`px-2 py-1 text-xs rounded border ${
+                darkMode
+                  ? "bg-gray-700 border-gray-600 text-white"
+                  : "bg-white border-gray-300"
+              }`}
+            >
+              <option value="">{UI_STRINGS.ALL_FRAUD}</option>
+              {uniqueFraud.map((val, i) => (
+                <option key={i} value={val}>
+                  {val}
+                </option>
+              ))}
+            </select>
 
-          {/* Reset Button */}
-          <button
-            onClick={resetFilters}
-            className={`px-2 py-1 text-xs rounded ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}
-          >
-            Reset
-          </button>
-        </div>
+            {/* Reset Button */}
+            <button
+              onClick={resetFilters}
+              className={`px-2 py-1 text-xs rounded ${
+                darkMode
+                  ? "bg-gray-700 text-gray-300"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              {UI_STRINGS.RESET}
+            </button>
+          </div>
 
-        <p
-          className={`text-[12px] mb-2 ${
-            darkMode ? "text-slate-400" : "text-gray-500"
-          }`}
-        >
-          Showing {filteredTransactions.length} of {transactions.length} transactions
-        </p>
+          <p
+            className={`text-[12px] mb-2 ${
+              darkMode ? "text-slate-400" : "text-gray-500"
+            }`}
+          >
+            {UI_STRINGS.SHOWING_TRANSACTIONS(
+              filteredTransactions.length,
+              mockTransactions.length
+            )}
+          </p>
         </div>
       </div>
 
@@ -419,21 +167,7 @@ const Content = ({ darkMode }) => {
                   : "border-gray-200 text-gray-700"
               }`}
             >
-              {[
-                "Time",
-                "SPBU",
-                "Dispenser",
-                "Vehicle Type",
-                "Brand",
-                "Color",
-                "License Plate",
-                "Fuel Type",
-                "Volume (L)",
-                "Subsidy Status",
-                "RFID Match",
-                "Fraud Detection",
-                "Evidence",
-              ].map((header, idx) => (
+              {TABLE_HEADERS.map((header, idx) => (
                 <th key={idx} className="py-2 px-2 text-left whitespace-nowrap">
                   {header}
                 </th>
@@ -460,71 +194,52 @@ const Content = ({ darkMode }) => {
                 <td className="py-2 px-2 whitespace-nowrap">{t.volume}</td>
                 <td className="py-2 px-2 whitespace-nowrap">
                   <span
-                    className={`px-2 py-1 rounded text-xs ${
-                      t.subsidy === "Valid"
-                        ? "bg-green-100 text-green-800"
-                        : t.subsidy === "Not Valid"
-                        ? "bg-red-100 text-red-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
+                    className={`px-2 py-1 rounded text-xs ${getStatusBadgeColor(
+                      t.subsidy
+                    )}`}
                   >
                     {t.subsidy}
                   </span>
                 </td>
                 <td className="py-2 px-2 whitespace-nowrap">
                   <span
-                    className={`px-2 py-1 rounded text-xs ${
-                      t.rfid === "Valid"
-                        ? "bg-green-100 text-green-800"
-                        : t.rfid === "Not Valid"
-                        ? "bg-red-100 text-red-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
+                    className={`px-2 py-1 rounded text-xs ${getStatusBadgeColor(
+                      t.rfid
+                    )}`}
                   >
                     {t.rfid}
                   </span>
                 </td>
                 <td className="py-2 px-2 whitespace-nowrap">
-                  {(() => {
-                    const fraudType = t.fraudDetection; // ✅ ambil dari data yang sudah dihitung
-                    let bgColor = "bg-green-100 text-green-800";
-                    if (fraudType === "Fraud RFID") bgColor = "bg-red-100 text-red-800";
-                    if (fraudType === "Mismatch Subsidi") bgColor = "bg-yellow-100 text-yellow-800";
-                    return (
-                      <span className={`px-2 py-1 rounded text-xs ${bgColor}`}>
-                        {fraudType}
-                      </span>
-                    );
-                  })()}
+                  <span
+                    className={`px-2 py-1 rounded text-xs ${getFraudBadgeColor(
+                      t.fraudDetection
+                    )}`}
+                  >
+                    {t.fraudDetection}
+                  </span>
                 </td>
                 <td className="py-2 px-2 whitespace-nowrap">
-                  {(() => {
-                    const fraudType = t.fraudDetection;
-                    if (fraudType === "No Fraud") {
-                      return (
-                        <button onClick={() => openModal(t)}>
-                          <Video className="text-blue-700" size={20} />
-                        </button>
-                      );
-                    } else {
-                      return (
-                        <div className="flex items-center gap-3">
-                          <button
-                            onClick={() => openModal(t)}
-                            className="relative inline-flex focus:outline-none"
-                          >
-                            <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
-                            <span className="relative text-red-500">
-                              <Video className="text-red-500" size={20} />
-                            </span>
-                          </button>
-                          <button onClick={() => openModal(t)}>
-                            <ImageIcon className="text-orange-500" size={20} />
-                          </button>
-                        </div>
-                      );
-                    }
-                  })()}
+                  {t.fraudDetection === FRAUD_TYPE.NO_FRAUD ? (
+                    <button onClick={() => openModal(t)}>
+                      <Video className="text-blue-700" size={20} />
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => openModal(t)}
+                        className="relative inline-flex focus:outline-none"
+                      >
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
+                        <span className="relative text-red-500">
+                          <Video className="text-red-500" size={20} />
+                        </span>
+                      </button>
+                      <button onClick={() => openModal(t)}>
+                        <ImageIcon className="text-orange-500" size={20} />
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
