@@ -453,7 +453,7 @@ const Content = ({ darkMode }) => {
 
             {/* LICENSE PLATE SNAPSHOT */}
             {evidenceType === 'plate' && (
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-[400px]">
                 <h4 className="flex items-center gap-2 font-semibold text-sm text-gray-700 dark:text-gray-300">
                   <ImageIcon size={16} className="text-yellow-500" /> License Plate Detection
                 </h4>
@@ -489,7 +489,7 @@ const Content = ({ darkMode }) => {
 
             {/* FRAUD SUSPECT (FACE) SNAPSHOT */}
             {evidenceType === 'face' && (
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-[400px]">
                 <h4 className="flex items-center gap-2 font-semibold text-sm text-gray-700 dark:text-gray-300">
                   <ImageIcon size={16} className="text-red-500" /> Fraud Suspect Detection
                 </h4>
