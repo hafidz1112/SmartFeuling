@@ -29,6 +29,7 @@ export function MenuDropdown() {
   const [assetStatusOpen, setAssetStatusOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
+  const [playBackOpen, setPlayBackOpen] = useState(false);
 
   return (
     <>
@@ -114,7 +115,25 @@ export function MenuDropdown() {
             <FontAwesomeIcon icon={faDownload} className="text-violet-600" />
             <div>
               <span>Download Report</span>
-              <br />
+              <br/>
+              <span className="text-xs text-gray-500">Export data</span>
+            </div>
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem
+            className="flex items-center gap-2 py-2 cursor-pointer"
+            onSelect={() => {
+              setTimeout(() => {
+                setDownloadOpen(true);
+              }, 0);
+            }}
+          >
+            <FontAwesomeIcon icon={faDownload} className="text-violet-600" />
+            <div>
+              <span>Playback Menu</span>
+              <br/>
               <span className="text-xs text-gray-500">Export data</span>
             </div>
           </DropdownMenuItem>
@@ -177,6 +196,20 @@ export function MenuDropdown() {
         size="lg"
       >
         <DownloadReportModalContent onClose={() => setDownloadOpen(false)} />
+      </Modal>
+      {/* Playback  */}
+      <Modal
+        isOpen={playBackOpen}
+        onClose={() => setPlayBackOpen(false)}
+        title={
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon icon={faDownload} />
+            <span>Playback</span>
+          </div>
+        }
+        size="lg"
+      >
+        {/* <DownloadReportModalContent onClose={() => setPlayBackOpen(false)} /> */}
       </Modal>
     </>
   );
