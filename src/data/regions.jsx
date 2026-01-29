@@ -6,7 +6,7 @@ const regions = [
         name: "Aceh",
         spbus: [
           {
-            name: "11.101.01 - SPBU Banda Aceh",
+            name: "11.231.401 - SPBU Banda Aceh",
             lat: 5.5465,
             lng: 95.3247,
             zoom: 17,
@@ -23,7 +23,7 @@ const regions = [
         name: "Medan",
         spbus: [
           {
-            name: "06.123.45 - SPBU Medan",
+            name: "11.201.102 - SPBU Medan Merak Jingga",
             lat: 3.597,
             lng: 98.675,
             zoom: 14,
@@ -47,7 +47,7 @@ const regions = [
         name: "Palembang",
         spbus: [
           {
-            name: "16.401.01 - SPBU Dem...",
+            name: "21.301.01 - SPBU Palembang Kenten",
             lat: -2.99,
             lng: 104.75,
             zoom: 13,
@@ -72,7 +72,7 @@ const regions = [
         name: "Banten",
         spbus: [
           {
-            name: "36.701.01 - SPBU Serang",
+            name: "31.421.01 - SPBU Serang",
             lat: 5.5465,
             lng: 95.3247,
             zoom: 17,
@@ -87,7 +87,7 @@ const regions = [
         name: "Tangerang",
         spbus: [
           {
-            name: "36.801.01 - SPBU Tangerang",
+            name: "31.153.02 - SPBU BSD City",
             lat: 5.5465,
             lng: 95.3247,
             zoom: 17,
@@ -104,7 +104,7 @@ const regions = [
         name: "DKI Jakarta",
         spbus: [
           {
-            name: "31.111.01 - SPBU Gatot Subroto",
+            name: "31.124.01 - SPBU Fatmawati 1",
             lat: -6.2146,
             lng: 106.8451,
             zoom: 17,
@@ -120,7 +120,7 @@ const regions = [
             ],
           },
           {
-            name: "31.112.02 - SPBU Thamrin",
+            name: "31.124.02 - SPBU Fatmawati 2",
             lat: -6.2146,
             lng: 106.8451,
             zoom: 17,
@@ -142,7 +142,7 @@ const regions = [
         name: "Bekasi",
         spbus: [
           {
-            name: "32.901.01 - SPBU Harapan Indah",
+            name: "31.171.03 - SPBU Narogong",
             lat: -6.186,
             lng: 106.97,
             zoom: 17,
@@ -159,7 +159,7 @@ const regions = [
         name: "Bogor",
         spbus: [
           {
-            name: "32.101.01 - SPBU Pajajaran",
+            name: "31.169.01 - SPBU Cibinong",
             lat: -6.597,
             lng: 106.806,
             zoom: 17,
@@ -177,7 +177,7 @@ const regions = [
         name: "Bandung",
         spbus: [
           {
-            name: "34.401.01 - SPBU Pasteur",
+            name: "31.401.01 - SPBU Dago",
             lat: -6.895,
             lng: 107.59,
             zoom: 17,
@@ -191,7 +191,7 @@ const regions = [
             ],
           },
           {
-            name: "34.401.02 - SPBU Dago",
+            name: "31.406.01 - SPBU Soekarno-Hatta",
             lat: -6.885,
             lng: 107.614,
             zoom: 17,
@@ -207,7 +207,7 @@ const regions = [
         name: "Cirebon",
         spbus: [
           {
-            name: "32.501.01 - SPBU Siliwangi",
+            name: "31.451.01 - SPBU Brigjen Darsono",
             lat: -6.706,
             lng: 108.555,
             zoom: 17,
@@ -218,46 +218,16 @@ const regions = [
           },
         ],
       },
-      {
-        name: "Sumedang",
-        spbus: [
-          {
-            name: "34.601.01 - SPBU Sumedang Kota",
-            lat: -6.858,
-            lng: 107.92,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -6.858, lng: 107.92 },
-              { name: "Dispenser A2", lat: -6.858, lng: 107.92 },
-            ],
-          },
-        ],
-      },
     ],
   },
   {
     name: "Region V",
     cities: [
       {
-        name: "Brebes",
-        spbus: [
-          {
-            name: "33.701.01 - SPBU Brebes",
-            lat: -6.8797,
-            lng: 109.0379,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -6.8797, lng: 109.0379 },
-              { name: "Dispenser A2", lat: -6.8797, lng: 109.0379 },
-            ],
-          },
-        ],
-      },
-      {
         name: "Solo",
         spbus: [
           {
-            name: "33.801.01 - SPBU Slamet Riyadi",
+            name: "41.575.01 - SPBU Solo Baru",
             lat: -7.5755,
             lng: 110.8243,
             zoom: 17,
@@ -274,7 +244,7 @@ const regions = [
         name: "Boyolali",
         spbus: [
           {
-            name: "33.901.01 - SPBU Boyolali",
+            name: "41.573.01 - SPBU Teras Boyolali",
             lat: -7.5385,
             lng: 110.5966,
             zoom: 17,
@@ -289,7 +259,7 @@ const regions = [
         name: "DI Yogyakarta",
         spbus: [
           {
-            name: "34.101.01 - SPBU Gejayan",
+            name: "41.551.01 - SPBU Lempuyangan",
             lat: -7.7828,
             lng: 110.3608,
             zoom: 17,
@@ -311,7 +281,7 @@ const regions = [
         name: "Surabaya",
         spbus: [
           {
-            name: "35.201.01 - SPBU Ahmad Yani",
+            name: "51.601.6 - SPBU Jemursari",
             lat: -7.3115,
             lng: 112.7334,
             zoom: 17,
@@ -330,7 +300,7 @@ const regions = [
         name: "Malang",
         spbus: [
           {
-            name: "35.301.01 - SPBU Soekarno Hatta",
+            name: "51.651.16 - SPBU Langsep",
             lat: -7.9429,
             lng: 112.6225,
             zoom: 17,
@@ -347,7 +317,7 @@ const regions = [
         name: "Bali",
         spbus: [
           {
-            name: "51.101.01 - SPBU Sunset Road",
+            name: "51.801.30 - SPBU Hayam Wuruk",
             lat: -8.7071,
             lng: 115.1743,
             zoom: 17,
@@ -364,7 +334,7 @@ const regions = [
         name: "Nusa Tenggara Timur",
         spbus: [
           {
-            name: "53.101.01 - SPBU Kupang",
+            name: "51.851.08 - SPBU Kupang",
             lat: -10.1772,
             lng: 123.5775,
             zoom: 17,
@@ -381,10 +351,10 @@ const regions = [
     name: "Region VII",
     cities: [
       {
-        name: "Kalimantan Timur - Banjarmasin",
+        name: "Kalimantan Timur",
         spbus: [
           {
-            name: "64.101.01 - SPBU Ahmad Yani",
+            name: "61.711.001 - SPBU Brigjen Hasan Basri KM.3",
             lat: -1.2654,
             lng: 116.8312,
             zoom: 17,
@@ -397,66 +367,66 @@ const regions = [
           },
         ],
       },
-      {
-        name: "Kalimantan Barat",
-        spbus: [
-          {
-            name: "61.101.01 - SPBU Pontianak",
-            lat: -0.0263,
-            lng: 109.3425,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -0.0263, lng: 109.3425 },
-              { name: "Dispenser A2", lat: -0.0263, lng: 109.3425 },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Kalimantan Selatan",
-        spbus: [
-          {
-            name: "63.101.01 - SPBU Barabai",
-            lat: -2.5842,
-            lng: 115.3871,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -2.5842, lng: 115.3871 },
-              { name: "Dispenser A2", lat: -2.5842, lng: 115.3871 },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Sulawesi - Sulawesi Barat",
-        spbus: [
-          {
-            name: "76.101.01 - SPBU Mamuju",
-            lat: -2.6778,
-            lng: 118.8899,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -2.6778, lng: 118.8899 },
-              { name: "Dispenser A2", lat: -2.6778, lng: 118.8899 },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Maluku",
-        spbus: [
-          {
-            name: "81.101.01 - SPBU Ambon",
-            lat: -3.6954,
-            lng: 128.1813,
-            zoom: 17,
-            dispensers: [
-              { name: "Dispenser A1", lat: -3.6954, lng: 128.1813 },
-              { name: "Dispenser A2", lat: -3.6954, lng: 128.1813 },
-            ],
-          },
-        ],
-      },
+      // {
+      //   name: "Kalimantan Barat",
+      //   spbus: [
+      //     {
+      //       name: "61.101.01 - SPBU Pontianak",
+      //       lat: -0.0263,
+      //       lng: 109.3425,
+      //       zoom: 17,
+      //       dispensers: [
+      //         { name: "Dispenser A1", lat: -0.0263, lng: 109.3425 },
+      //         { name: "Dispenser A2", lat: -0.0263, lng: 109.3425 },
+      //       ],
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Kalimantan Selatan",
+      //   spbus: [
+      //     {
+      //       name: "63.101.01 - SPBU Barabai",
+      //       lat: -2.5842,
+      //       lng: 115.3871,
+      //       zoom: 17,
+      //       dispensers: [
+      //         { name: "Dispenser A1", lat: -2.5842, lng: 115.3871 },
+      //         { name: "Dispenser A2", lat: -2.5842, lng: 115.3871 },
+      //       ],
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Sulawesi - Sulawesi Barat",
+      //   spbus: [
+      //     {
+      //       name: "76.101.01 - SPBU Mamuju",
+      //       lat: -2.6778,
+      //       lng: 118.8899,
+      //       zoom: 17,
+      //       dispensers: [
+      //         { name: "Dispenser A1", lat: -2.6778, lng: 118.8899 },
+      //         { name: "Dispenser A2", lat: -2.6778, lng: 118.8899 },
+      //       ],
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Maluku",
+      //   spbus: [
+      //     {
+      //       name: "81.101.01 - SPBU Ambon",
+      //       lat: -3.6954,
+      //       lng: 128.1813,
+      //       zoom: 17,
+      //       dispensers: [
+      //         { name: "Dispenser A1", lat: -3.6954, lng: 128.1813 },
+      //         { name: "Dispenser A2", lat: -3.6954, lng: 128.1813 },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];
