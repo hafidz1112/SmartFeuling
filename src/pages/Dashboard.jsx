@@ -149,14 +149,14 @@ export const Dashboard = () => {
                 </h2>
                 
                 {/* Location Info Badge */}
-                <div className={`hidden sm:flex items-center px-2 sm:px-3 py-1 rounded-full text-xs ${
+                {/* <div className={`hidden sm:flex items-center px-2 sm:px-3 py-1 rounded-full text-xs ${
                   darkMode ? "bg-blue-900/50 text-blue-200" : "bg-blue-100 text-blue-700"
                 }`}>
                   <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-1 text-[8px] sm:text-[10px]" />
                   <span className="truncate max-w-[100px] sm:max-w-none">
                     {getLocationDetail()}
                   </span>
-                </div>
+                </div> */}
               </div>
               
               <div className="flex items-center space-x-1 sm:space-x-2">
