@@ -9,6 +9,7 @@ import {
   faDownload,
   faAngleDown,
   faImage,
+  faPlayCircle, // Tambahkan icon untuk Playback
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -21,6 +22,7 @@ import {
 import Modal from "@/components/ui/modal";
 import { SummaryDashboardModalContent } from "./summary-dashboard-content";
 import { DownloadReportModalContent } from "./download-report-content";
+import { PlaybackMenuModalContent } from "./playback-menu-content"; // Akan kita buat komponen ini
 
 // ... existing code ...
 
@@ -29,7 +31,7 @@ export function MenuDropdown() {
   const [assetStatusOpen, setAssetStatusOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [downloadOpen, setDownloadOpen] = useState(false);
-  const [playBackOpen, setPlayBackOpen] = useState(false);
+  const [playbackOpen, setPlaybackOpen] = useState(false); // Ubah state name
 
   return (
     <>
@@ -126,15 +128,15 @@ export function MenuDropdown() {
             className="flex items-center gap-2 py-2 cursor-pointer"
             onSelect={() => {
               setTimeout(() => {
-                setDownloadOpen(true);
+                setPlaybackOpen(true); // Ganti dengan setPlaybackOpen
               }, 0);
             }}
           >
-            <FontAwesomeIcon icon={faDownload} className="text-violet-600" />
+            <FontAwesomeIcon icon={faPlayCircle} className="text-cyan-600" /> {/* Ganti icon */}
             <div>
               <span>Playback Menu</span>
               <br/>
-              <span className="text-xs text-gray-500">Export data</span>
+              <span className="text-xs text-gray-500">Video rekaman</span> {/* Update deskripsi */}
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -197,19 +199,21 @@ export function MenuDropdown() {
       >
         <DownloadReportModalContent onClose={() => setDownloadOpen(false)} />
       </Modal>
-      {/* Playback  */}
+
+      {/* Playback Menu Modal */}
       <Modal
-        isOpen={playBackOpen}
-        onClose={() => setPlayBackOpen(false)}
+        isOpen={playbackOpen}
+        onClose={() => setPlaybackOpen(false)}
         title={
           <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faDownload} />
-            <span>Playback</span>
+            <FontAwesomeIcon icon={faPlayCircle} />
+            <span>Playback Menu - CCTV Recording</span>
           </div>
         }
-        size="lg"
+        size="2xl"
+        contentClassName="bg-gray-50 min-w-[900px]"
       >
-        {/* <DownloadReportModalContent onClose={() => setPlayBackOpen(false)} /> */}
+        <PlaybackMenuModalContent />
       </Modal>
     </>
   );

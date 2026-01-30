@@ -36,14 +36,14 @@ const Navbar = ({ darkMode, setDarkMode, sidebarOpen, setSidebarOpen }) => {
 
   return (
     <header
-      className={`flex justify-between items-center px-4 lg:px-6 ${
+      className={`flex justify-between items-center px-4 py-0 lg:px-6 ${
         darkMode
           ? "bg-slate-900 border-slate-800 text-slate-100"
           : "bg-white border-gray-200 text-gray-800"
       } border-b sticky top-0 z-50 transition-colors duration-300`}
     >
       <div className="flex items-center">
-        <img src="/images/logo.png" alt="logo" className="w-[80px]" />
+        <img src="/images/logo.png" alt="logo" className="w-[90px]" />
         <h1 className="text-xl font-bold hidden lg:block">Smart Fueling Verification System</h1>
         <button
           className="p-2 text-xl font-bold lg:hidden dark:text-slate-100"

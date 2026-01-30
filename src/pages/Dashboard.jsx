@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faArrowsRotate,
+  faMapMarkerAlt,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "@/components/navbar";
 import Menu from "@/components/menu";
@@ -20,7 +22,81 @@ export const Dashboard = () => {
   const [currentMapUrl, setCurrentMapUrl] = useState(
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32659008.493882835!2d95.84784495832173!3d-2.2671055891349647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1768191910659!5m2!1sid!2sid"
   );
+  const [currentLocation, setCurrentLocation] = useState({
+    region: "Indonesia",
+    city: "All Regions",
+    spbu: "",
+    dispenser: ""
+  });
+  const [mapHeight, setMapHeight] = useState(256); // Default height
   const { showToast } = useToast();
+
+  // Update map height berdasarkan ukuran layar
+  useEffect(() => {
+    const updateMapHeight = () => {
+      if (window.innerWidth < 640) { // Mobile
+        setMapHeight(200);
+      } else if (window.innerWidth < 1024) { // Tablet
+        setMapHeight(300);
+      } else { // Desktop
+        setMapHeight(300);
+      }
+    };
+
+    updateMapHeight();
+    window.addEventListener('resize', updateMapHeight);
+    
+    return () => window.removeEventListener('resize', updateMapHeight);
+  }, []);
+
+  // Fungsi untuk reset ke peta default Indonesia
+  const resetToDefaultMap = () => {
+    setCurrentMapUrl("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d32659008.493882835!2d95.84784495832173!3d-2.2671055891349647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1768191910659!5m2!1sid!2sid");
+    setCurrentLocation({
+      region: "Indonesia",
+      city: "All Regions",
+      spbu: "",
+      dispenser: ""
+    });
+    showToast("Map reset to Indonesia", "info", 1500);
+  };
+
+  // Fungsi untuk zoom in
+  const zoomIn = () => {
+    // Logic untuk zoom in (bisa diimplementasi dengan state zoom level)
+    showToast("Map zoomed in", "info", 1500);
+  };
+
+  // Fungsi untuk zoom out
+  const zoomOut = () => {
+    // Logic untuk zoom out (bisa diimplementasi dengan state zoom level)
+    showToast("Map zoomed out", "info", 1500);
+  };
+
+  // Fungsi untuk mendapatkan judul lokasi yang sedang ditampilkan
+  const getLocationTitle = () => {
+    if (currentLocation.dispenser) {
+      return `${currentLocation.dispenser}`;
+    } else if (currentLocation.spbu) {
+      const spbuName = currentLocation.spbu.split(" - ")[1] || currentLocation.spbu;
+      return `${spbuName}`;
+    } else if (currentLocation.city !== "All Regions") {
+      return `${currentLocation.city}, ${currentLocation.region}`;
+    } else {
+      return "SPBU Network Map - Indonesia";
+    }
+  };
+
+  // Fungsi untuk mendapatkan detail lokasi
+  const getLocationDetail = () => {
+    if (currentLocation.dispenser) {
+      return `${currentLocation.spbu.split(" - ")[1] || currentLocation.spbu}`;
+    } else if (currentLocation.spbu) {
+      return `${currentLocation.city}`;
+    } else {
+      return `${currentLocation.city}`;
+    }
+  };
 
   return (
     <div className="h-auto w-full flex flex-col overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
@@ -48,79 +124,144 @@ export const Dashboard = () => {
           <div className=" flex justify-between border-b">
             <div className="text-xl font-bold dark:text-gray-100"></div>
           </div>
-          {/* navigation bar */}
-
-          <Sidenav setCurrentMapUrl={setCurrentMapUrl} />
+          
+          <Sidenav 
+            setCurrentMapUrl={setCurrentMapUrl} 
+            setCurrentLocation={setCurrentLocation}
+          />
         </div>
 
         {/* main content */}
-        <main className="flex-1 overflow-y-auto p-4">
-          {/* SPBU Network Map */}
+        <main className="flex-1 overflow-y-auto p-2 sm:p-4">
+          {/* SPBU Network Map - Responsive */}
           <div
-            className={`mb-6 p-4 rounded-lg ${
+            className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg ${
               darkMode ? "bg-gray-800" : "bg-white"
             } shadow`}
           >
-            <div className="flex justify-between items-center mb-4 lg:space-x-0 space-x-1">
-              <h2 className="text-[8px] lg:text-xl font-bold flex items-center">
-                <span className="mr-2 text-blue-600 bg-blue-100 rounded-md p-2">
-                  <FontAwesomeIcon icon={faLocationDot} />
-                </span>{" "}
-                SPBU Network Map
-              </h2>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Search region or SPBU..."
-                  className={`px-3 py-2 rounded-md border lg:w-64 w-[120px] lg:text-sm text-[12px] ${
-                    darkMode
-                      ? "bg-gray-700 border-gray-600"
-                      : "bg-gray-100 border-gray-300"
-                  }`}
-                />
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 sm:mb-4 gap-2">
+              <div className="flex items-center">
+                <h2 className="text-xs sm:text-sm md:text-xl font-bold flex items-center mr-2 sm:mr-4">
+                  <span className="mr-1 sm:mr-2 text-blue-600 bg-blue-100 rounded-md p-1 sm:p-2">
+                    <FontAwesomeIcon icon={faLocationDot} className="text-xs sm:text-base" />
+                  </span>
+                  <span className="truncate">{getLocationTitle()}</span>
+                </h2>
+                
+                {/* Location Info Badge */}
+                <div className={`hidden sm:flex items-center px-2 sm:px-3 py-1 rounded-full text-xs ${
+                  darkMode ? "bg-blue-900/50 text-blue-200" : "bg-blue-100 text-blue-700"
+                }`}>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-1 text-[8px] sm:text-[10px]" />
+                  <span className="truncate max-w-[100px] sm:max-w-none">
+                    {getLocationDetail()}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <div className="relative flex-1 sm:flex-none">
+                  <FontAwesomeIcon 
+                    icon={faSearch} 
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs sm:text-sm"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className={`pl-7 pr-2 py-1 sm:py-2 rounded-md border w-full sm:w-48 lg:w-64 text-xs sm:text-sm ${
+                      darkMode
+                        ? "bg-gray-700 border-gray-600"
+                        : "bg-gray-100 border-gray-300"
+                    }`}
+                  />
+                </div>
                 <button
-                  className={`p-2 rounded text-[8px] lg:text-sm ${
-                    darkMode ? "bg-gray-700" : "bg-gray-200"
+                  className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${
+                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
                   }`}
+                  onClick={zoomIn}
+                  title="Zoom In"
                 >
                   +
                 </button>
                 <button
-                  className={`p-2 rounded text-[8px] lg:text-sm ${
-                    darkMode ? "bg-gray-700" : "bg-gray-200"
+                  className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${
+                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
                   }`}
+                  onClick={zoomOut}
+                  title="Zoom Out"
                 >
                   &minus;
                 </button>
                 <button
-                  className={`p-2 rounded text-[13px] ${
-                    darkMode ? "bg-gray-700" : "bg-gray-200"
+                  className={`p-1 sm:p-2 rounded text-xs sm:text-sm ${
+                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
                   }`}
+                  onClick={resetToDefaultMap}
+                  title="Reset to Indonesia Map"
                 >
                   <FontAwesomeIcon icon={faArrowsRotate} />
                 </button>
               </div>
             </div>
 
-            {/* Kontainer map dengan tinggi tetap */}
-            <div className="h-64 rounded-lg overflow-hidden relative bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-700 dark:to-gray-800">
-              <iframe
-                src={currentMapUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="SPBU Network Map"
-              ></iframe>
+            {/* Kontainer map responsif */}
+            <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-700 dark:to-gray-800">
+              <div 
+                className="w-full"
+                style={{ height: `${mapHeight}px` }}
+              >
+                <iframe
+                  src={currentMapUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={getLocationTitle()}
+                  key={currentMapUrl}
+                  className="absolute top-0 left-0 w-full h-full"
+                ></iframe>
+              </div>
 
-              {/* Overlay info (opsional) */}
+              {/* Overlay info lokasi - Responsive */}
+              {currentLocation.city !== "All Regions" && (
+                <div className={`absolute bottom-2 sm:bottom-4 left-2 sm:left-4 px-2 sm:px-3 py-1 sm:py-2 rounded-lg shadow-lg ${
+                  darkMode 
+                    ? "bg-gray-900/90 text-gray-100 border border-gray-700" 
+                    : "bg-white/90 text-gray-800 border border-gray-200"
+                } max-w-[80%] sm:max-w-none`}>
+                  <div className="flex items-center text-[10px] sm:text-xs">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-1 sm:mr-2 text-red-500 text-xs sm:text-sm" />
+                    <div className="truncate">
+                      <div className="font-medium truncate">
+                        {currentLocation.dispenser 
+                          ? currentLocation.dispenser 
+                          : currentLocation.spbu 
+                          ? currentLocation.spbu.split(" - ")[1] || currentLocation.spbu
+                          : currentLocation.city
+                        }
+                      </div>
+                      <div className="text-gray-500 dark:text-gray-400 text-[8px] sm:text-[10px] truncate">
+                        {currentLocation.dispenser 
+                          ? `${currentLocation.spbu.split(" - ")[1] || currentLocation.spbu}, ${currentLocation.city}`
+                          : currentLocation.spbu
+                          ? `${currentLocation.city}, ${currentLocation.region}`
+                          : `${currentLocation.city}, ${currentLocation.region}`
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
+          
           {/* realtime transaksi */}
           <Content darkMode={darkMode} />
         </main>
+
         {/* ringht konten */}
         <aside
           className={`w-full  lg:w-80 h-full overflow-y-auto ${
