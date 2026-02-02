@@ -71,6 +71,26 @@ export function MenuDropdown() {
 
           <DropdownMenuSeparator />
 
+          
+
+          <DropdownMenuItem
+            className="flex items-center gap-2 py-2 cursor-pointer"
+            onSelect={() => {
+              setTimeout(() => {
+                setPlaybackOpen(true); // Ganti dengan setPlaybackOpen
+              }, 0);
+            }}
+          >
+            <FontAwesomeIcon icon={faPlayCircle} className="text-cyan-600" /> {/* Ganti icon */}
+            <div>
+              <span>Playback Menu</span>
+              <br/>
+              <span className="text-xs text-gray-500">Video rekaman</span> {/* Update deskripsi */}
+            </div>
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
           <DropdownMenuItem
             className="flex items-center gap-2 py-2 cursor-pointer"
             onSelect={() => {
@@ -122,23 +142,7 @@ export function MenuDropdown() {
             </div>
           </DropdownMenuItem>
 
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem
-            className="flex items-center gap-2 py-2 cursor-pointer"
-            onSelect={() => {
-              setTimeout(() => {
-                setPlaybackOpen(true); // Ganti dengan setPlaybackOpen
-              }, 0);
-            }}
-          >
-            <FontAwesomeIcon icon={faPlayCircle} className="text-cyan-600" /> {/* Ganti icon */}
-            <div>
-              <span>Playback Menu</span>
-              <br/>
-              <span className="text-xs text-gray-500">Video rekaman</span> {/* Update deskripsi */}
-            </div>
-          </DropdownMenuItem>
+          
         </DropdownMenuContent>
       </DropdownMenu>
 

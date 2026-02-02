@@ -289,6 +289,12 @@ const Content = ({ darkMode }) => {
                           {t.volume}
                         </td>
                       );
+                      case "Harga":
+                      return (
+                        <td key={i} className="py-2 px-2 whitespace-nowrap">
+                          {t.harga}
+                        </td>
+                      );
 
                     case "Subsidy Status":
                       return (

@@ -34,6 +34,7 @@ export const FUEL_TYPE = {
   SOLAR: "Solar",
 };
 
+
 /**
  * Table Headers
  */
@@ -47,6 +48,7 @@ export const TABLE_HEADERS = [
   "License Plate",
   "Fuel Type",
   "Volume (L)",
+  "Harga",
   "Subsidy Status",
   "RFID Match",
   "Fraud Detection",
