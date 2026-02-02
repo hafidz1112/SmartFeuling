@@ -16,9 +16,9 @@ export const RFID_STATUS = {
 
 export const FRAUD_TYPE = {
   NO_FRAUD: "No Fraud",
-  FRAUD_RFID: "Fraud RFID",
+  FRAUD_RFID: "Fraud",
   MISMATCH_SUBSIDY: "Mismatch Subsidi",
-  UNKNOWN: "Unknown",
+  UNKNOWN: "No Fraud",
 };
 
 export const VEHICLE_TYPE = {
